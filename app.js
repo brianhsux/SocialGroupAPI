@@ -29,11 +29,6 @@ passport.use(new LocalStrategy({
 ));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
-
-// test register
-// app.post('/v1/account/register', (req, res) => {
-//     res.json({ message: 'Account register!' })
-// });
     
 //api routes v1
 app.use('/v1', routes);    

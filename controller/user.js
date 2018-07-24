@@ -21,7 +21,7 @@ router.post('/add', authenticate, (req, res) => {
 
     newUser.save(err => {
         if (err) {
-        res.status(500).json({ message: err });
+            res.status(500).json({ message: err });
         }
         res.status(200).json(newUser);
     });
@@ -31,7 +31,7 @@ router.post('/add', authenticate, (req, res) => {
 router.get('/', authenticate, (req, res) => {
     User.find({}, (err, users) => {
         if (err) {
-        res.status(500).json({ message: err });
+            res.status(500).json({ message: err });
         }
         res.status(200).json(users);
     });
@@ -41,7 +41,7 @@ router.get('/', authenticate, (req, res) => {
 router.get('/:id', authenticate, (req, res) => {
     User.findById(req.params.id, (err, user) => {
         if (err) {
-        res.status(500).json({ message: err });
+            res.status(500).json({ message: err });
         }
         res.status(200).json(user);
     });
@@ -100,8 +100,5 @@ router.delete('/', authenticate, (req, res) => {
         res.status(200).json({ message: 'Users All Removed'});
     });
 });
-
-//   return api;
-// }
 
 module.exports = router;

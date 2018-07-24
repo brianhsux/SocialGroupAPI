@@ -6,6 +6,7 @@ var express = require("express"),
     account = require("../controller/account"),
     channel = require("../controller/channel"),
     message = require("../controller/message"),
+    campground = require("../controller/campground"),
     router = express();
 
 //connect to db
@@ -18,6 +19,7 @@ initalizeDb(db => {
   router.use('/account', account);
   router.use('/channel', channel);
   router.use('/message', message);
+  router.use('/campground', campground);
   
   //internal middleware
 //   router.use(middleware({ config, db }));
