@@ -5,7 +5,8 @@ var userSchema = new Schema({
     name: String,
     email: String,
     avatarName: String,
-    avatarColor: String
+    avatarColor: String,
+    gender: String
 });
 
 module.exports = mongoose.model("User", userSchema);

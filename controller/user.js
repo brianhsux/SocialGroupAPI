@@ -18,6 +18,7 @@ router.post('/add', authenticate, (req, res) => {
     newUser.email = req.body.email;
     newUser.avatarName = req.body.avatarName;
     newUser.avatarColor = req.body.avatarColor;
+    newUser.gender = req.body.gender;
 
     newUser.save(err => {
         if (err) {
@@ -58,6 +59,7 @@ router.put('/:id', authenticate, (req, res) => {
         user.email = req.body.email;
         user.avatarName = req.body.avatarName;
         user.avatarColor = req.body.avatarColor;
+        user.gender = req.body.gender;
         user.save(err => {
             if (err) {
                 res.status(500).json({ message: err });
