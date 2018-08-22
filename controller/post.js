@@ -27,7 +27,9 @@ cloudinary.config({
 
 router.get("/", function(req, res) {
     // find the camgrounds from DB
-    Post.find({}, function(err, posts) {
+    // Post.find({}, function(err, posts) {
+    // Post.find({}).sort({date: -1}).exec(function(err, posts) {
+    Post.find({}, null, {sort: '-date'}, function(err, posts) {
         if (err) {
             console.log("Something wrong when get post from DB");
             // console.log(err);
@@ -35,7 +37,6 @@ router.get("/", function(req, res) {
         } else {
             console.log("Get posts data Success");
             console.log(posts);
-            // res.render("campgrounds/index", {campgrounds: campgrounds});
             res.status(200).json(posts);
         }
     });

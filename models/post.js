@@ -7,6 +7,7 @@ var postSchema = new mongoose.Schema({
     postImage: String,
     postContent: String,
     postTime: String,
+    date: { type: Date, default: Date.now },
     comments: []
 });
 
