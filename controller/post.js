@@ -25,10 +25,9 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
+// Get All Posts
 router.get("/", function(req, res) {
     // find the camgrounds from DB
-    // Post.find({}, function(err, posts) {
-    // Post.find({}).sort({date: -1}).exec(function(err, posts) {
     Post.find({}, null, {sort: '-date'}, function(err, posts) {
         if (err) {
             console.log("Something wrong when get post from DB");
@@ -42,6 +41,7 @@ router.get("/", function(req, res) {
     });
 });
 
+// Create Post
 router.post("/add", authenticate, function(req, res) {
     
     let newPost = new Post();
@@ -59,33 +59,7 @@ router.post("/add", authenticate, function(req, res) {
         console.log(newPost)
         res.status(200).json(newPost);
     });
-    
-    // cloudinary.uploader.upload(req.file.path, function(result) {
-        // console.log("=====Uploader=====");
-        // console.log(result);
-        // add cloudinary url for the image to the campground object under image property
-        // req.body.campground.image = result.secure_url;
-        // add author to campground
-        // req.body.campground.author = {
-        //     id: req.user._id,
-        //     username: req.user.username
-        // }
-        
-            // Post.create(req.body.post, function(err, post) {
-            // if (err) {
-            //     // req.flash('error', err.message);
-            //     // return res.redirect('back');
-            //     res.status(500).json({message: err});
-            // } else {
-            //     res.status(200).json(post);
-            // }
-            // });
-    // });
 });
-
-// router.get("/new", authenticate, function(req, res) {
-//     res.render("campgrounds/new");
-// });
 
 // // SHOW - shows more info about one campground
 // router.get("/:id", function(req, res) {
@@ -131,19 +105,21 @@ router.post("/add", authenticate, function(req, res) {
 //     });
 // });
 
-// // DELETE ROUTE
-// router.delete("/:id", authenticate, function(req, res) {
-//     Campground.findById(req.params.id, function(err, campground) {
-//         if (err) {
-//             // res.redirect("/campgrounds");
-//             res.status(500).json({message: err});
-//         } else {
-//             campground.remove();
-//             // req.flash("success", "Campground deleted");
-//             // res.redirect("/campgrounds");
-//             res.status(200).json(campground);
-//         }
-//     })
-// });
+// DELETE ROUTE
+router.delete("/:id", authenticate, function(req, res) {
+    console.log("remove postId: " + req.params.id)
+    Post.findById(req.params.id, function(err, post) {
+        if (err) {
+            // res.redirect("/campgrounds");
+            res.status(500).json({message: err});
+        } else {
+            console.log("remove post: " + post)
+            post.remove();
+            // req.flash("success", "Campground deleted");
+            // res.redirect("/campgrounds");
+            res.status(200).json(post);
+        }
+    })
+});
 
 module.exports = router;
