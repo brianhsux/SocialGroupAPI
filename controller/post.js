@@ -79,31 +79,43 @@ router.post("/add", authenticate, function(req, res) {
 //     });
 // });
 
-// // EDIT ROUTE
-// router.get("/:id/edit", authenticate, function(req, res) {
-//     Campground.findById(req.params.id, function(err, campground) {
-//         if (err) {
-//             console.log(err);
-//             res.status(500).json({message: err});
-//         } else {
-//             // res.render("campgrounds/edit", {campground: campground});
-//             res.status(200).json(campground);
-//         }
-//     })
-// });
+// SHOW ROUTE
+router.get("/byId/:id", authenticate, function(req, res) {
+    Post.findById(req.params.id, function(err, post) {
+        if (err) {
+            console.log(err);
+            res.status(500).json({message: err});
+        } else {
+            // res.render("campgrounds/edit", {campground: campground});
+            res.status(200).json(post);
+        }
+    });
+});
 
-// // UPDATE ROUTE
-// router.put("/:id", authenticate, function(req, res) {
-//     Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, newCampground) {
-//         if (err) {
-//             // res.redirect("/campgrounds");
-//             res.status(500).json({message: err});
-//         } else {
-//             // res.redirect("/campgrounds/" + req.params.id);
-//             res.status(200).json(newCampground);
-//         }
-//     });
-// });
+// UPDATE ROUTE
+router.put("/byId/:id", authenticate, function(req, res) {
+    Post.findById(req.params.id, function(err, post) {
+        if (err) {
+            console.log(err);
+            res.status(500).json({message: err});
+        } else {
+            post.authorEmail = req.body.authorEmail
+            post.authorName = req.body.authorName
+            post.authorImage = req.body.authorImage
+            post.postImage = req.body.postImage;
+            post.postContent = req.body.postContent;
+            post.postTime = req.body.postTime;
+            
+            post.save(err => {
+                if (err) {
+                    res.status(500).json({ message: err });
+                }
+                console.log(post)
+                res.status(200).json(post);
+            });
+        }
+    });
+});
 
 // DELETE ROUTE
 router.delete("/:id", authenticate, function(req, res) {
